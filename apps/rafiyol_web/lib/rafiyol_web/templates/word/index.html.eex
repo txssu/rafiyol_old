@@ -1,0 +1,18 @@
+<h1>Recently added words</h1>
+
+<ol class="list-group list-group-numbered mb-3">
+<%= for word <- @words do %>
+    <li class="list-group-item d-flex">
+        <div class="me-auto">
+            <div class="fw-bold"><%= word.self %></div>
+            <div class="mb-2"><%= word.translation %></div>
+
+            <%= button "Explore", to: Routes.word_path(@conn, :show, word.id), method: :get, class: "btn btn-success"%>
+            <%= button_edit @conn, word.id %>
+            <%= button_delete @conn, word.id %>
+        </div>
+    </li>
+<% end %>
+</ol>
+
+<%= button "Add More!", to: Routes.word_path(@conn, :new), method: :get, class: "btn btn-primary" %>
