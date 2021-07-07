@@ -1,0 +1,13 @@
+<h1>Log In</h1>
+
+<%= form_for @conn, Routes.session_path(@conn, :create), [as: :user], fn f -> %>
+    <div class="mb-3">
+        <%= bootstarp_input_group f, :username, nil %>
+    </div>
+
+    <div class="mb-3">
+        <%= bootstarp_input_group f, :password, nil %>
+    </div>
+
+    <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

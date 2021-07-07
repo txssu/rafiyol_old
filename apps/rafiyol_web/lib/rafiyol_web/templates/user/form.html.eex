@@ -1,0 +1,20 @@
+<%= form_for @changeset, @action, fn f -> %>
+
+    <div class="mb-3">
+        <%= bootstarp_input_group f, :username, @changeset.action %>
+    </div>
+
+    <div class="mb-3">
+        <%= bootstarp_input_group f, :email, @changeset.action %>
+    </div>
+
+    <div class="mb-3">
+        <%= bootstarp_input_group f, :password, @changeset.action %>
+    </div>
+
+    <div class="mb-3">
+        <%= bootstarp_input_group f, :password_confirmation, @changeset.action %>
+    </div>
+
+    <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

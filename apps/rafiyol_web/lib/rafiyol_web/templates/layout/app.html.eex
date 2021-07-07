@@ -10,23 +10,36 @@
   </head>
   <body>
     <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="#">Rafiyol</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav me-auto">
+              <%= link "Words", to: Routes.word_path(@conn, :index), class: "nav-link" %>
+              <%= if @current_user do %>
+                <%= link "Account", to: Routes.user_path(@conn, :show, @current_user.id), class: "nav-link" %>
+              <% end %>
+            </div>
+            <div class="float-right">
+              <%= if @current_user do %>
+                <%= button "Log out", to: Routes.session_path(@conn, :delete), method: :delete, class: "btn btn-outline-danger" %>
+              <% else %>
+                <%= button "Register", to: Routes.user_path(@conn, :new), method: :get, class: "btn btn-success" %>
+                <%= button "Log in", to: Routes.session_path(@conn, :new), method: :get, class: "btn btn-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </nav>
     </header>
     <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <div class="my-2">
+        <div class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></div>
+        <div class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></div>
+      </div>
       <%= @inner_content %>
     </main>
   </body>

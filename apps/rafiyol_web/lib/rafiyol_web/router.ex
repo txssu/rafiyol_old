@@ -7,6 +7,7 @@ defmodule RafiyolWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug RafiyolWeb.Authenticator
   end
 
   pipeline :api do
@@ -19,6 +20,13 @@ defmodule RafiyolWeb.Router do
     get "/", PageController, :index
 
     resources "/words", WordController
+
+    resources "/users", UserController, only: [:show, :new, :create]
+
+
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    delete "/logout", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
