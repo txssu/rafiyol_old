@@ -21,8 +21,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav me-auto">
-            <%= link "Words", to: Routes.word_path(@conn, :index), class: "nav-link" %>
             <%= if @current_user do %>
+            <%= link "Words", to: Routes.word_path(@conn, :index), class: "nav-link" %>
+
             <%= link "Account", to: Routes.user_path(@conn, :show, @current_user.id), class: "nav-link" %>
             <% end %>
           </div>

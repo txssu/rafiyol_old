@@ -1,6 +1,8 @@
 defmodule RafiyolWeb.WordController do
   use RafiyolWeb, :controller
 
+  plug RafiyolWeb.Logged, :logged
+
   def index(conn, _params) do
     words = Rafiyol.list_recent_words()
     render(conn, "index.html", words: words)
