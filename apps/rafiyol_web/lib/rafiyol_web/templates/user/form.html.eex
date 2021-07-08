@@ -8,6 +8,7 @@
         <%= bootstarp_input_group f, :email, @changeset.action %>
     </div>
 
+    <%# TODO: Password input %>
     <div class="mb-3">
         <%= bootstarp_input_group f, :password, @changeset.action %>
     </div>
