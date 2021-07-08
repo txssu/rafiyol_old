@@ -1,6 +1,10 @@
 defmodule RafiyolWeb.SessionController do
   use RafiyolWeb, :controller
 
+  plug RafiyolWeb.Logged, :notlogged when action in [:new]
+  plug RafiyolWeb.Logged, :logged when action in [:delete]
+
+
   def new(conn, _params) do
     render(conn, "new.html")
   end
