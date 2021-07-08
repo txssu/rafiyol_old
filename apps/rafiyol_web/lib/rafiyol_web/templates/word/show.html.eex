@@ -1,10 +1,10 @@
 <div class="mb-3">
-    <h3><%= @word.self %></h3>
-    Translation: <%= @word.translation %>
+  <h3><%= @word.self %></h3>
+  Translation: <%= @word.translation %>
 </div>
 
 <div>
-    <%= button "← Back", to: Routes.word_path(@conn, :index), class: "btn btn-success", method: :get %>
-    <%= button_edit @conn, @word.id %>
-    <%= button_delete @conn, @word.id %>
+  <%= button "← Back", to: Routes.word_path(@conn, :index), class: "btn btn-success", method: :get %>
+  <%= button_edit @conn, @word.id %>
+  <%= button_delete @conn, @word.id %>
 </div>

@@ -1,12 +1,13 @@
 <%= form_for @changeset, @action, fn f -> %>
 
-    <div class="mb-3">
-        <%= bootstarp_input_group f, :self, @changeset.action, "Word" %>
-    </div>
+<div class="mb-3">
+  <%= bootstarp_input_group f, :self, @changeset.action, "Word" %>
+</div>
 
-    <div class="mb-3">
-        <%= bootstarp_input_group f, :translation, @changeset.action %>
-    </div>
+<div class="mb-3">
+  <%= bootstarp_input_group f, :translation, @changeset.action %>
+</div>
 
-    <%= submit "Submit", class: "btn btn-primary" %>
+<%= submit "Submit", class: "btn btn-primary" %>
+
 <% end %>

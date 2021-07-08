@@ -2,9 +2,9 @@
 
 
 <dl>
-<dt>Username</dt>
-<dd><%= @user.username %></dd>
-<br />
-<dt>Email address</dt>
-<dd><%= @user.email %></dd>
+  <dt>Username</dt>
+  <dd><%= @user.username %></dd>
+  <br />
+  <dt>Email address</dt>
+  <dd><%= @user.email %></dd>
 </dl>
