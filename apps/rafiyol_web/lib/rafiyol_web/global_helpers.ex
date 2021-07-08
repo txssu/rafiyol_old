@@ -3,23 +3,47 @@ defmodule RafiyolWeb.GlobalHelpers do
 
   import RafiyolWeb.ErrorHelpers
 
-  def bootstarp_input_group(form, field, validation, name \\ nil) do
+  def bootstarp_input_group(form, field, type \\ :text, validation, name \\ nil)
+
+  def bootstarp_input_group(form, field, type, validation, name) do
+    label =
+      if name do
+        label(form, field, name)
+      else
+        label(form, field)
+      end
+
     [
-      if name do label(form, field, name) else label(form, field) end,
-      validate_text_input(form, field, validation),
+      label,
+      input_with_validation(form, field, type, validation),
       error_tag(form, field)
     ]
   end
 
-  def validate_text_input(form, field, validation) do
+  def input_with_validation(form, field, :text, validation) do
+    fun = &text_input(&1, &2, &3)
+    generate_input(form, field, fun, validation)
+  end
+
+  def input_with_validation(form, field, :password, validation) do
+    fun = &password_input(&1, &2, &3)
+    generate_input(form, field, fun, validation)
+  end
+
+  def input_with_validation(form, field, :email, validation) do
+    fun = &email_input(&1, &2, &3)
+    generate_input(form, field, fun, validation)
+  end
+
+  defp generate_input(form, field, fun, validation) do
     if Keyword.get_values(form.errors, field) == [] do
       if validation do
-        text_input(form, field, class: "form-control is-valid")
+        fun.(form, field, class: "form-control is-valid")
       else
-        text_input(form, field, class: "form-control")
+        fun.(form, field, class: "form-control")
       end
     else
-      text_input(form, field, class: "form-control is-invalid")
+      fun.(form, field, class: "form-control is-invalid")
     end
   end
 end

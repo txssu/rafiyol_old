@@ -1,7 +1,7 @@
 <%= form_for @changeset, @action, fn f -> %>
 
 <div class="mb-3">
-  <%= bootstarp_input_group f, :self, @changeset.action, "Word" %>
+  <%= bootstarp_input_group f, :self, :text, @changeset.action, "Word" %>
 </div>
 
 <div class="mb-3">

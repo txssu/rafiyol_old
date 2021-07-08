@@ -8,9 +8,8 @@
       <%= bootstarp_input_group f, :username, nil %>
     </div>
 
-    <%# TODO: password input %>
     <div class="mb-3">
-      <%= bootstarp_input_group f, :password, nil %>
+      <%= bootstarp_input_group f, :password, :password, nil %>
     </div>
 
     <%= submit "Submit", class: "btn btn-primary" %>

@@ -17,7 +17,10 @@ defmodule RafiyolWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     case Rafiyol.insert_user(user_params) do
       {:ok, user} ->
-        redirect(conn, to: Routes.user_path(conn, :show, user))
+        conn
+        |> put_flash(:info, "Account successful created")
+        |> put_session(:user_id, user.id)
+        |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, changeset} ->
         conn
@@ -35,7 +38,7 @@ defmodule RafiyolWeb.UserController do
       |> Map.get("id")
       |> String.to_integer()
 
-    if Map.get(conn.assigns.current_user, :id) == id do
+    if conn.assigns.current_user != nil || conn.assigns.current_user[:id] == id do
       conn
     else
       conn

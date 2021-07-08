@@ -3,16 +3,15 @@
     <%= bootstarp_input_group f, :username, @changeset.action %></div>
 
   <div class="mb-3">
-    <%= bootstarp_input_group f, :email, @changeset.action %>
-  </div>
-
-  <%# TODO: Password input %>
-  <div class="mb-3">
-    <%= bootstarp_input_group f, :password, @changeset.action %>
+    <%= bootstarp_input_group f, :email, :email, @changeset.action %>
   </div>
 
   <div class="mb-3">
-    <%= bootstarp_input_group f, :password_confirmation, @changeset.action %>
+    <%= bootstarp_input_group f, :password, :password, @changeset.action %>
+  </div>
+
+  <div class="mb-3">
+    <%= bootstarp_input_group f, :password_confirmation, :password, @changeset.action %>
   </div>
 
   <%= submit "Submit", class: "btn btn-primary" %>
