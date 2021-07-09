@@ -80,4 +80,15 @@ defmodule Rafiyol do
       _ -> Password.dummy_verify()
     end
   end
+
+  def edit_user(id) do
+    get_user(id)
+    |> User.changeset()
+  end
+
+  def update_user(%User{} = user, updates) do
+    user
+    |> User.changeset(updates)
+    |> Repo.update()
+  end
 end

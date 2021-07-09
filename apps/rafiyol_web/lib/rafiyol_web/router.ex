@@ -21,7 +21,7 @@ defmodule RafiyolWeb.Router do
 
     resources "/words", WordController
 
-    resources "/users", UserController, only: [:show, :new, :create]
+    resources "/users", UserController, only: [:show, :new, :create, :update]
 
 
     get "/login", SessionController, :new

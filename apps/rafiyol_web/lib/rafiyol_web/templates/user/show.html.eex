@@ -1,10 +1,4 @@
-<h1>User detail</h1>
+<h1>Edit account</h1>
 
 
-<dl>
-  <dt>Username</dt>
-  <dd><%= @user.username %></dd>
-  <br />
-  <dt>Email address</dt>
-  <dd><%= @user.email %></dd>
-</dl>
+<%= render("form.html", changeset: @changeset, action: Routes.user_path(@conn, :show, 1), with_confirm: false) %>

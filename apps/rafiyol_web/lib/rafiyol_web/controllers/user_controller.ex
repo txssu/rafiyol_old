@@ -3,10 +3,11 @@ defmodule RafiyolWeb.UserController do
 
   plug :only_own_profile when action in [:show]
   plug RafiyolWeb.Logged, :notlogged when action in [:new]
+  plug RafiyolWeb.Logged, :logged when action in [:edit]
 
   def show(conn, %{"id" => id}) do
-    user = Rafiyol.get_user(id)
-    render(conn, "show.html", user: user)
+    user = Rafiyol.edit_user(id)
+    render(conn, "show.html", changeset: user)
   end
 
   def new(conn, _params) do
@@ -29,6 +30,35 @@ defmodule RafiyolWeb.UserController do
           "Unfortunately, there are errors in your submission. Please correct them below."
         )
         |> render("new.html", changeset: changeset)
+    end
+  end
+
+  def update(conn, %{
+        "user" => updates = %{"password" => password}
+      }) do
+    current_user = conn.assigns.current_user
+
+    case Rafiyol.get_user_by_username_and_password(current_user.username, password) do
+      %Rafiyol.User{} ->
+        case Rafiyol.update_user(current_user, updates) do
+          {:ok, user} ->
+            redirect(conn, to: Routes.user_path(conn, :show, user.id))
+
+          {:error, user} ->
+            conn
+            |> put_flash(
+              :error,
+              "Unfortunately, there are errors in your submission. Please correct them below."
+            )
+            |> render("show.html", changeset: user)
+        end
+
+      _ ->
+        user = Rafiyol.edit_user(current_user.id)
+
+        conn
+        |> put_flash(:error, "Password is incorrect")
+        |> render("show.html", changeset: user)
     end
   end
 

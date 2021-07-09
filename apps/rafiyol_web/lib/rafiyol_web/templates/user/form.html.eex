@@ -10,9 +10,11 @@
     <%= bootstarp_input_group f, :password, :password, @changeset.action %>
   </div>
 
+  <%= if @with_confirm do %>
   <div class="mb-3">
     <%= bootstarp_input_group f, :password_confirmation, :password, @changeset.action %>
   </div>
+  <% end %>
 
   <%= submit "Submit", class: "btn btn-primary" %>
 <% end %>
