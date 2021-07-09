@@ -4,8 +4,9 @@ defmodule RafiyolWeb.WordController do
   plug RafiyolWeb.Logged, :logged
 
   def index(conn, _params) do
-    words = Rafiyol.list_recent_words()
-    render(conn, "index.html", words: words)
+    user = Rafiyol.list_user_recent_words(conn.assigns.current_user)
+
+    render(conn, "index.html", words: user.words)
   end
 
   def show(conn, %{"id" => id}) do
@@ -19,6 +20,9 @@ defmodule RafiyolWeb.WordController do
   end
 
   def create(conn, %{"word" => word_params}) do
+    user_id = conn.assigns.current_user.id
+    word_params = Map.put(word_params, "user_id", user_id)
+
     case Rafiyol.insert_word(word_params) do
       {:ok, word} ->
         redirect(conn, to: Routes.word_path(conn, :show, word))

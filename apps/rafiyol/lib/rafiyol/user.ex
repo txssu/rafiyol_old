@@ -8,6 +8,7 @@ defmodule Rafiyol.User do
     field :email, :string
     field :password, :string, virtual: true
     field :hashed_password, :string
+    has_many :words, Rafiyol.Word
     timestamps()
   end
 

@@ -28,6 +28,11 @@ defmodule Rafiyol do
     Repo.all(query)
   end
 
+  def list_user_recent_words(user) do
+    user
+    |> Repo.preload(:words)
+  end
+
   def get_word(id) do
     Repo.get(Word, id)
   end
