@@ -28,9 +28,14 @@ defmodule Rafiyol do
     Repo.all(query)
   end
 
-  def list_user_recent_words(user) do
-    user
-    |> Repo.preload(:words)
+  def list_users_recent_words(user_id) do
+    query =
+      from w in Word,
+        where: ^user_id == w.user_id,
+        order_by: [desc: :inserted_at],
+        limit: 10
+
+    Repo.all(query)
   end
 
   def get_word(id) do

@@ -8,8 +8,13 @@ defmodule RafiyolWeb.LearnController do
   end
 
   def create(conn, _params) do
-    user = Rafiyol.list_user_recent_words(conn.assigns.current_user)
-    Rafiyol.create_learn_session(user.id, user.words)
+    user_id = conn.assigns.current_user.id
+
+    words =
+      Rafiyol.list_users_recent_words(user_id)
+      |> Enum.shuffle()
+
+    Rafiyol.create_learn_session(user_id, words)
     redirect(conn, to: Routes.learn_path(conn, :edit))
   end
 

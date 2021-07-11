@@ -4,9 +4,9 @@ defmodule RafiyolWeb.WordController do
   plug RafiyolWeb.Logged, :logged
 
   def index(conn, _params) do
-    user = Rafiyol.list_user_recent_words(conn.assigns.current_user)
+    words = Rafiyol.list_users_recent_words(conn.assigns.current_user.id)
 
-    render(conn, "index.html", words: user.words)
+    render(conn, "index.html", words: words)
   end
 
   def show(conn, %{"id" => id}) do
