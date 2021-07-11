@@ -29,6 +29,6 @@ defmodule RafiyolWeb.SessionController do
     |> clear_session()
     |> configure_session(drop: true)
     |> put_flash(:info, "Successfully logged out")
-    |> redirect(to: Routes.word_path(conn, :index))
+    |> redirect(to: Routes.page_path(conn, :index))
   end
 end
