@@ -28,8 +28,13 @@ defmodule RafiyolWeb.Router do
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
 
-    # get "/learn", LearnController, :show
-    # post "/learn", LearnController, :update
+    scope "/learn" do
+      get "/", LearnController, :show
+      post "/start", LearnController, :create
+      get "/session", LearnController, :edit
+      post "/session", LearnController, :update
+      get "/session/finish", LearnController, :delete
+    end
   end
 
   # Other scopes may use custom stacks.

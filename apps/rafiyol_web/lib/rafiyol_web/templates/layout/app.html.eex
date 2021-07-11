@@ -24,6 +24,8 @@
             <%= if @current_user do %>
             <%= link "Words", to: Routes.word_path(@conn, :index), class: "nav-link" %>
 
+            <%= link "Learn", to: Routes.learn_path(@conn, :show), class: "nav-link" %>
+
             <%= link "Account", to: Routes.user_path(@conn, :show, @current_user.id), class: "nav-link" %>
             <% end %>
           </div>

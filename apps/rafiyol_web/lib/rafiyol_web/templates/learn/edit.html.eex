@@ -1,0 +1,41 @@
+<div class="row justify-content-md-center">
+  <div class="col-lg-6 col-md-9">
+    <div class="d-flex flex-column justify-content-center">
+      <div class="text-center mb-3">
+        <%= @word.self %>
+      </div>
+
+      <div class="text-center mb-3">
+        <button id="translation" class="btn btn-primary" onclick="toggle_word()">See</button>
+      </div>
+    </div>
+
+    <script>
+      function toggle_word() {
+        document.getElementById("translation").outerHTML = "<%= @word.translation %>"
+        document.getElementById("buttons").classList.toggle("d-none")
+      }
+    </script>
+
+    <div id="buttons" class="d-none row">
+      <%= form_for @conn, Routes.learn_path(@conn, :update), [as: :word, class: "col-6"], fn f ->  %>
+      <%= hidden_input f, :state, value: "again" %>
+      <%= hidden_input f, :word_id, value: @word.id %>
+
+      <div class="text-center">
+        <%= submit "Again", class: "btn btn-danger"%>
+      </div>
+      <% end %>
+
+      <%= form_for @conn, Routes.learn_path(@conn, :update), [as: :word, class: "col-6"], fn f ->  %>
+      <%= hidden_input f, :state, value: "good" %>
+      <%= hidden_input f, :word_id, value: @word.id %>
+
+      <div class="text-center">
+        <%= submit "Good", class: "btn btn-success"%>
+      </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

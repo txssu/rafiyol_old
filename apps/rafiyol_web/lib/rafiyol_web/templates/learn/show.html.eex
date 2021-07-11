@@ -1,0 +1,1 @@
+<%= button "Start learn session", to: Routes.learn_path(@conn, :create), class: "btn btn-primary"%>
