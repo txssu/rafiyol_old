@@ -38,6 +38,18 @@ defmodule Rafiyol do
     Repo.all(query)
   end
 
+  def list_users_words_for_learning(user_id) do
+    query =
+      from w in Word,
+        where:
+          ^user_id == w.user_id and
+            (w.next_repeat <= ^Date.utc_today() or is_nil(w.next_repeat)),
+        order_by: [asc: :inserted_at],
+        limit: 10
+
+    Repo.all(query)
+  end
+
   def get_word(id) do
     Repo.get(Word, id)
   end
@@ -66,6 +78,37 @@ defmodule Rafiyol do
   def delete_word(id) do
     word = get_word(id)
     Repo.delete(word)
+  end
+
+  def increse_word_level(id) do
+    word = get_word(id)
+
+    case word.level do
+      0 ->
+        Word.changeset(word, %{level: 1, next_repeat: Date.add(Date.utc_today(), 1)})
+
+      1 ->
+        Word.changeset(word, %{level: 2, next_repeat: Date.add(Date.utc_today(), 3)})
+
+      2 ->
+        Word.changeset(word, %{level: 3, next_repeat: Date.add(Date.utc_today(), 7)})
+
+      3 ->
+        Word.changeset(word, %{level: 4, next_repeat: Date.add(Date.utc_today(), 14)})
+
+      4 ->
+        Word.changeset(word, %{level: 5, next_repeat: Date.add(Date.utc_today(), 30)})
+
+      5 ->
+        Word.changeset(word, %{next_repeat: Date.add(Date.utc_today(), 60)})
+    end
+    |> Repo.update()
+  end
+
+  def reset_word_level(id) do
+    word = get_word(id)
+    Word.changeset(word, %{level: 0, next_repeat: Date.add(Date.utc_today(), 1)})
+    |> Repo.update()
   end
 
   def new_user do

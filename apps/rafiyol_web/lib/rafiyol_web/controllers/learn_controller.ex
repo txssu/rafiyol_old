@@ -11,7 +11,7 @@ defmodule RafiyolWeb.LearnController do
     user_id = conn.assigns.current_user.id
 
     words =
-      Rafiyol.list_users_recent_words(user_id)
+      Rafiyol.list_users_words_for_learning(user_id)
       |> Enum.shuffle()
 
     Rafiyol.create_learn_session(user_id, words)
@@ -33,9 +33,10 @@ defmodule RafiyolWeb.LearnController do
     case state do
       "again" ->
         Rafiyol.learn_session_word_again(conn.assigns.current_user.id, Rafiyol.get_word(word_id))
+        Rafiyol.reset_word_level(word_id)
 
       "good" ->
-        nil
+        Rafiyol.increse_word_level(word_id)
     end
 
     redirect(conn, to: Routes.learn_path(conn, :edit))

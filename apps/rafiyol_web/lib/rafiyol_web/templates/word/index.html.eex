@@ -6,6 +6,17 @@
     <div class="me-auto">
       <div class="fw-bold"><%= word.self %></div>
       <div class="mb-2"><%= word.translation %></div>
+      <div class="mb-2"> Repeat in
+        <% IO.inspect(Date.utc_today() ) %>
+        <% IO.inspect(word.next_repeat ) %>
+        <% IO.inspect(Date.utc_today() < word.next_repeat ) %>
+        <%= if word.next_repeat <= Date.utc_today() or is_nil(word.next_repeat) do %>
+          today
+        <% else %>
+          <%= word.next_repeat %>
+        <% end %>
+      </div>
+
 
       <%= button "Explore", to: Routes.word_path(@conn, :show, word.id), method: :get, class: "btn btn-success"%>
       <%= button_edit @conn, word.id %>
