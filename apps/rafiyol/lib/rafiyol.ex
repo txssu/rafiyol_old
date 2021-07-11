@@ -64,7 +64,8 @@ defmodule Rafiyol do
   end
 
   def delete_word(id) do
-    Repo.delete(id)
+    word = get_word(id)
+    Repo.delete(word)
   end
 
   def new_user do
