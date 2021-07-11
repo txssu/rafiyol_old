@@ -1,4 +1,7 @@
-<h1>Edit account</h1>
+<div class="row justify-content-md-center">
+  <div class="col-lg-6 col-md-9">
+    <h1>Edit account</h1>
 
-
-<%= render("form.html", changeset: @changeset, action: Routes.user_path(@conn, :show, 1), with_confirm: false) %>
+    <%= render("form.html", changeset: @changeset, action: Routes.user_path(@conn, :show, 1), with_confirm: false) %>
+  </div>
+</div>
