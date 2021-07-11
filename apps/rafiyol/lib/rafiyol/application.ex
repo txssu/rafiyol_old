@@ -15,6 +15,8 @@ defmodule Rafiyol.Application do
       # {Rafiyol.Worker, arg}
     ]
 
+    Rafiyol.LearnSession.init()
+
     Supervisor.start_link(children, strategy: :one_for_one, name: Rafiyol.Supervisor)
   end
 end

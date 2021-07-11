@@ -6,7 +6,7 @@ defmodule Rafiyol do
   Contexts are also responsible for managing your data, regardless
   if it comes from the database, an external API or others.
   """
-  alias Rafiyol.{User, Word, Repo, Password}
+  alias Rafiyol.{User, Word, Repo, Password, LearnSession}
 
   import Ecto.Query
 
@@ -95,5 +95,21 @@ defmodule Rafiyol do
     user
     |> User.changeset(updates)
     |> Repo.update()
+  end
+
+  def create_learn_session(user_id, words) do
+    LearnSession.create_session(user_id, words)
+  end
+
+  def learn_session_next_word(user_id) do
+    LearnSession.next_word(user_id)
+  end
+
+  def learn_session_word_again(user_id, word) do
+    LearnSession.again(user_id, word)
+  end
+
+  def finish_learn_session(user_id) do
+    LearnSession.delete_session(user_id)
   end
 end
