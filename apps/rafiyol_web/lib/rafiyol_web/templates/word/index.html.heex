@@ -6,10 +6,7 @@
     <div class="me-auto">
       <div class="fw-bold"><%= word.self %></div>
       <div class="mb-2"><%= word.translation %></div>
-      <div class="mb-2"> Repeat in
-        <% IO.inspect(Date.utc_today() ) %>
-        <% IO.inspect(word.next_repeat ) %>
-        <% IO.inspect(Date.utc_today() < word.next_repeat ) %>
+      <div class="mb-2"> To be repeated
         <%= if word.next_repeat <= Date.utc_today() or is_nil(word.next_repeat) do %>
           today
         <% else %>
