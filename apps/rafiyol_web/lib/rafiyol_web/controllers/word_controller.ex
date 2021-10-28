@@ -6,17 +6,17 @@ defmodule RafiyolWeb.WordController do
   def index(conn, _params) do
     words = Rafiyol.list_users_recent_words(conn.assigns.current_user.id)
 
-    render(conn, "index.html", words: words)
+    render(conn, "index.html", words: words, page_name: "Recently words")
   end
 
   def show(conn, %{"id" => id}) do
     word = Rafiyol.get_word(id)
-    render(conn, "show.html", word: word)
+    render(conn, "show.html", word: word, page_name: word.self)
   end
 
   def new(conn, _params) do
     word = Rafiyol.new_word()
-    render(conn, "new.html", changeset: word)
+    render(conn, "new.html", changeset: word, page_name: "Add word")
   end
 
   def create(conn, %{"word" => word_params}) do
@@ -33,13 +33,13 @@ defmodule RafiyolWeb.WordController do
           :error,
           "Unfortunately, there are errors in your submission. Please correct them below."
         )
-        |> render("new.html", changeset: word)
+        |> render("new.html", changeset: word, page_name: "Add word")
     end
   end
 
   def edit(conn, %{"id" => id}) do
     word = Rafiyol.edit_word(id)
-    render(conn, "edit.html", changeset: word)
+    render(conn, "edit.html", changeset: word, page_name: "Edit word")
   end
 
   def update(conn, %{"id" => id, "word" => word_params}) do
@@ -55,7 +55,7 @@ defmodule RafiyolWeb.WordController do
           :error,
           "Unfortunately, there are errors in your submission. Please correct them below."
         )
-        |> render("new.html", changeset: word)
+        |> render("new.html", changeset: word, page_name: "Edit word")
     end
   end
 

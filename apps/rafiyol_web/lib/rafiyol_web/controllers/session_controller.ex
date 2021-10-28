@@ -6,7 +6,7 @@ defmodule RafiyolWeb.SessionController do
 
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    render(conn, "new.html", page_name: "Registration")
   end
 
   def create(conn, %{"user" => %{"username" => username, "password" => password}}) do
@@ -20,7 +20,7 @@ defmodule RafiyolWeb.SessionController do
       _ ->
         conn
         |> put_flash(:error, "This username and password combination cannot be found")
-        |> render("new.html")
+        |> render("new.html", page_name: "Registration")
     end
   end
 

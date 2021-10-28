@@ -4,7 +4,7 @@ defmodule RafiyolWeb.LearnController do
   plug RafiyolWeb.Logged, :logged
 
   def show(conn, _params) do
-    render(conn, "show.html")
+    render(conn, "show.html", page_name: "Learning")
   end
 
   def create(conn, _params) do
@@ -25,7 +25,7 @@ defmodule RafiyolWeb.LearnController do
         redirect(conn, to: Routes.learn_path(conn, :delete))
 
       word ->
-        render(conn, "edit.html", word: word)
+        render(conn, "edit.html", word: word, page_name: "Learning")
     end
   end
 
@@ -43,6 +43,6 @@ defmodule RafiyolWeb.LearnController do
   end
 
   def delete(conn, _params) do
-    render(conn, "delete.html")
+    render(conn, "delete.html", page_name: "Learning complete")
   end
 end

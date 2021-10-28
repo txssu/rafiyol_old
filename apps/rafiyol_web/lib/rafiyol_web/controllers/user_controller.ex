@@ -7,12 +7,12 @@ defmodule RafiyolWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Rafiyol.edit_user(id)
-    render(conn, "show.html", changeset: user)
+    render(conn, "show.html", changeset: user, page_name: conn.assigns.current_user.username)
   end
 
   def new(conn, _params) do
     changeset = Rafiyol.new_user()
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, page_name: "Registration")
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -29,7 +29,7 @@ defmodule RafiyolWeb.UserController do
           :error,
           "Unfortunately, there are errors in your submission. Please correct them below."
         )
-        |> render("new.html", changeset: changeset)
+        |> render("new.html", changeset: changeset, page_name: "Registration")
     end
   end
 
@@ -50,7 +50,7 @@ defmodule RafiyolWeb.UserController do
               :error,
               "Unfortunately, there are errors in your submission. Please correct them below."
             )
-            |> render("show.html", changeset: user)
+            |> render("show.html", changeset: user, page_name: conn.assigns.current_user.username)
         end
 
       _ ->
@@ -58,7 +58,7 @@ defmodule RafiyolWeb.UserController do
 
         conn
         |> put_flash(:error, "Password is incorrect")
-        |> render("show.html", changeset: user)
+        |> render("show.html", changeset: user, page_name: conn.assigns.current_user.username)
     end
   end
 
