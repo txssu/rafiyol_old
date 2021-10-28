@@ -1,1 +1,10 @@
+<h2>Repeat today's words!</h2>
+<p>
+There are up to 10 words in one deck for repetition.
+If you know the translation of the word, press <button class="btn btn-success btn-sm">good</button>, 
+otherwise press <button class="btn btn-danger btn-sm">again</button> and the word will be moved to the end of the deck you are studying.
+The words you remembered will appear in the deck again in a few days (from 3 to 30),
+the words where you pressed <button class="btn btn-danger btn-sm">again</button> will appear in the deck tomorrow.
+</p>
+
 <%= button "Start learn session", to: Routes.learn_path(@conn, :create), class: "btn btn-primary"%>
