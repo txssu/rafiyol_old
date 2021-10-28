@@ -3,7 +3,7 @@
 
     <h1>New word</h1>
 
-    <%= render("form.html", changeset: @changeset, action: Routes.word_path(@conn, :create)) %>
+    <%= render("form.html", conn: @conn, changeset: @changeset, action: Routes.word_path(@conn, :create)) %>
 
   </div>
 </div>

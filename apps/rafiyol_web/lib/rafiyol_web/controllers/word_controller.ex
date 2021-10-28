@@ -24,8 +24,8 @@ defmodule RafiyolWeb.WordController do
     word_params = Map.put(word_params, "user_id", user_id)
 
     case Rafiyol.insert_word(word_params) do
-      {:ok, word} ->
-        redirect(conn, to: Routes.word_path(conn, :show, word))
+      {:ok, _} ->
+        redirect(conn, to: Routes.word_path(conn, :new))
 
       {:error, word} ->
         conn

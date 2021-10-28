@@ -7,7 +7,11 @@
 <div class="mb-3">
   <%= bootstarp_input_group f, :translation, @changeset.action %>
 </div>
+<div>
 
-<%= submit "Submit", class: "btn btn-primary" %>
+    <%= submit "Add", class: "btn btn-primary" %>
 
+    <%= button_cancel @conn %>
+  
+</div>
 <% end %>
