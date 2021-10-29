@@ -1,7 +1,11 @@
 <h1>My words</h1>
+<% # @words - слова, которые надо отрендерить %>
 <%= if length(@words) != 0 do %>
   <ol class="list-group mb-3">
-    <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :top) %>
+    <% # @len_words - общее количество слов пользователя %>
+    <%= if @len_words > 10 do %>
+      <%= render("pagination.html", offset: @offset, conn: @conn, len_words: @len_words, pagination_type: :top) %>
+    <% end %>
     <%= for word <- @words do %>
       <li class="list-group-item d-flex">
         <div class="me-auto">
@@ -21,8 +25,10 @@
       </li>
     <% end %>
 
-    <%= if length(@words) > 5 do %>
-      <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :bottom) %>
+    <% # length(@words) - количество слов на данной странице %>
+    <% # @len_words - общее количество слов пользователя %>
+    <%= if length(@words) > 5 and @len_words > 10 do %>
+      <%= render("pagination.html", offset: @offset, conn: @conn, len_words: @len_words, pagination_type: :bottom) %>
     <% end %>
 
   </ol>

@@ -19,8 +19,8 @@ defmodule Rafiyol do
     Repo.all(Word)
   end
 
-  def words_count do
-    Repo.aggregate(from(w in Word), :count, :id)
+  def words_count(user_id) do
+    Repo.aggregate(from(w in Word, where: ^user_id == w.user_id), :count, :id)
   end
 
   def list_recent_words do

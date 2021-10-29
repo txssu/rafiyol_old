@@ -3,12 +3,12 @@
         <li class={if @offset == 0, do: "disabled" <> " page-item"}>
             <a class={pagination_link_class @pagination_type, :left} href={Routes.word_path(@conn, :index, offset: @offset - 1)}>Prev</a>
         </li>
-        <%= for n <- pages(@offset, trunc(Float.ceil(@max_offset/10)), 3) do %>
+        <%= for n <- pages(@offset, trunc(Float.ceil(@len_words/10)), 3) do %>
             <li class={if @offset == (n-1), do: "active" <> " page-item"}>
             <a class={pagination_link_class @pagination_type, :center} href={Routes.word_path(@conn, :index, offset: n - 1)}><%= n %></a>
             </li>
         <% end %>
-        <li class={if (@offset+1) * 10 >= @max_offset, do: "disabled" <> " page-item"}>
+        <li class={if (@offset+1) * 10 >= @len_words, do: "disabled" <> " page-item"}>
             <a class={pagination_link_class @pagination_type, :right} href={Routes.word_path(@conn, :index, offset: @offset + 1)}>Next</a>
         </li>
     </ul>

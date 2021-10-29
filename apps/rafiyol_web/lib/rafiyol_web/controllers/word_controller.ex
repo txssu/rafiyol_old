@@ -10,12 +10,14 @@ defmodule RafiyolWeb.WordController do
         :error -> 0
       end
 
-    words = Rafiyol.list_users_recent_words(conn.assigns.current_user.id, offset * 10)
+    user_id = conn.assigns.current_user.id
+
+    words = Rafiyol.list_users_recent_words(user_id, offset * 10)
 
     render(conn, "index.html",
       words: words,
       offset: offset,
-      max_offset: Rafiyol.words_count(),
+      len_words: Rafiyol.words_count(user_id),
       page_name: "Recently words"
     )
   end
