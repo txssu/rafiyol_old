@@ -1,12 +1,12 @@
-<h1>Recently added words</h1>
+<h1>My words</h1>
 
-<ol class="list-group list-group-numbered mb-3">
+<ol class="list-group mb-3">
+  <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :top) %>
   <%= for word <- @words do %>
   <li class="list-group-item d-flex">
     <div class="me-auto">
-      <div class="fw-bold"><%= word.self %></div>
-      <div class="mb-2"><%= word.translation %></div>
-      <div class="mb-2"> To be repeated
+      <div class="mb-2 fw-bold"><%= word.self %> → <%= word.translation %></div>
+      <div class="mb-2"> Next
         <%= if word.next_repeat <= Date.utc_today() or is_nil(word.next_repeat) do %>
           today
         <% else %>
@@ -15,12 +15,12 @@
       </div>
 
 
-      <%= button "Explore", to: Routes.word_path(@conn, :show, word.id), method: :get, class: "btn btn-success"%>
       <%= button_edit @conn, word.id %>
       <%= button_delete @conn, word.id %>
     </div>
   </li>
   <% end %>
+  <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :bottom) %>
 </ol>
 
 <%= button "Add More!", to: Routes.word_path(@conn, :new), method: :get, class: "btn btn-primary" %>

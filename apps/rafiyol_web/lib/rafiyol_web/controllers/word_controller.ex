@@ -3,10 +3,21 @@ defmodule RafiyolWeb.WordController do
 
   plug RafiyolWeb.Logged, :logged
 
-  def index(conn, _params) do
-    words = Rafiyol.list_users_recent_words(conn.assigns.current_user.id)
+  def index(conn, params) do
+    offset =
+      case Map.get(params, "offset", "0") |> Integer.parse() do
+        {num, _error} -> max(num, 0)
+        :error -> 0
+      end
 
-    render(conn, "index.html", words: words, page_name: "Recently words")
+    words = Rafiyol.list_users_recent_words(conn.assigns.current_user.id, offset * 10)
+
+    render(conn, "index.html",
+      words: words,
+      offset: offset,
+      max_offset: Rafiyol.words_count(),
+      page_name: "Recently words"
+    )
   end
 
   def show(conn, %{"id" => id}) do

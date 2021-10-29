@@ -19,6 +19,10 @@ defmodule Rafiyol do
     Repo.all(Word)
   end
 
+  def words_count do
+    Repo.aggregate(from(w in Word), :count, :id)
+  end
+
   def list_recent_words do
     query =
       from w in Word,
@@ -28,12 +32,13 @@ defmodule Rafiyol do
     Repo.all(query)
   end
 
-  def list_users_recent_words(user_id) do
+  def list_users_recent_words(user_id, offset \\ 0) do
     query =
       from w in Word,
         where: ^user_id == w.user_id,
         order_by: [desc: :inserted_at],
-        limit: 10
+        limit: 10,
+        offset: ^offset
 
     Repo.all(query)
   end

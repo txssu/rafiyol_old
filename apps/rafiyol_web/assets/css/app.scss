@@ -29,3 +29,16 @@
 .alert:empty {
   display: none;
 }
+
+.rounded-bottom-right {
+  border-bottom-right-radius: 1rem !important;
+}
+.rounded-bottom-left {
+  border-bottom-left-radius: 1rem !important;
+}
+.rounded-top-right {
+  border-top-right-radius: 1rem !important;
+}
+.rounded-top-left {
+  border-top-left-radius: 1rem !important;
+}
