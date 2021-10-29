@@ -13,3 +13,22 @@ import "bootstrap"
 //     import socket from "./socket"
 //
 import "phoenix_html"
+
+
+// ->Based on https://gist.github.com/ScottKaye/5158488
+function getURLParameter(name) {
+	return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]);
+}
+function hideURLParams() {
+	//Parameters to hide (ie ?success=value, ?error=value, etc)
+	var hide = ['success','error'];
+	for(var h in hide) {
+		if(getURLParameter(h)) {
+			history.replaceState(null, document.getElementsByTagName("title")[0].innerHTML, window.location.pathname);
+		}
+	}
+}
+
+//Run onload, you can do this yourself if you want to do it a different way
+window.onload = hideURLParams;
+// <-Based on https://gist.github.com/ScottKaye/5158488
