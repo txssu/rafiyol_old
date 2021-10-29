@@ -1,26 +1,33 @@
 <h1>My words</h1>
+<%= if length(@words) != 0 do %>
+  <ol class="list-group mb-3">
+    <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :top) %>
+    <%= for word <- @words do %>
+      <li class="list-group-item d-flex">
+        <div class="me-auto">
+          <div class="mb-2 fw-bold"><%= word.self %> → <%= word.translation %></div>
+          <div class="mb-2"> Next
+            <%= if word.next_repeat <= Date.utc_today() or is_nil(word.next_repeat) do %>
+              today
+            <% else %>
+              <%= word.next_repeat %>
+            <% end %>
+          </div>
 
-<ol class="list-group mb-3">
-  <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :top) %>
-  <%= for word <- @words do %>
-  <li class="list-group-item d-flex">
-    <div class="me-auto">
-      <div class="mb-2 fw-bold"><%= word.self %> → <%= word.translation %></div>
-      <div class="mb-2"> Next
-        <%= if word.next_repeat <= Date.utc_today() or is_nil(word.next_repeat) do %>
-          today
-        <% else %>
-          <%= word.next_repeat %>
-        <% end %>
-      </div>
 
+          <%= button_edit @conn, word.id %>
+          <%= button_delete @conn, word.id %>
+        </div>
+      </li>
+    <% end %>
 
-      <%= button_edit @conn, word.id %>
-      <%= button_delete @conn, word.id %>
-    </div>
-  </li>
-  <% end %>
-  <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :bottom) %>
-</ol>
+    <%= if length(@words) > 5 do %>
+      <%= render("pagination.html", offset: @offset, conn: @conn, max_offset: @max_offset, pagination_type: :bottom) %>
+    <% end %>
+
+  </ol>
+<% else %>
+  <h2>Click the button below!</h2>
+<% end %>
 
 <%= button "Add More!", to: Routes.word_path(@conn, :new), method: :get, class: "btn btn-primary" %>
