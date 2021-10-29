@@ -20,7 +20,12 @@
 
 
           <%= button_edit @conn, word.id %>
-          <%= button_delete @conn, word.id %>
+          <% # length(@words) - количество слов на данной странице %>
+          <%= if length(@words) != 1 do %>
+            <%= button_delete @conn, word.id, Routes.word_path(@conn, :index, offset: @offset) %>
+          <% else %>
+            <%= button_delete @conn, word.id, Routes.word_path(@conn, :index, offset: max(0, @offset-1)) %>
+          <% end %>
         </div>
       </li>
     <% end %>

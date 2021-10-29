@@ -3,12 +3,20 @@ defmodule RafiyolWeb.WordView do
 
   use Phoenix.HTML
 
-  def button_delete(conn, id) do
+  def button_delete(conn, id, next \\ nil) do
     button("Delete",
-      to: Routes.word_path(conn, :delete, id),
+      to: Routes.word_path(conn, :delete, id, next: next?(conn, next)),
       method: :delete,
       class: "btn btn-outline-danger"
     )
+  end
+
+  defp next?(conn, arg) do
+    if is_nil(arg) do
+      Routes.word_path(conn, :index)
+    else
+      arg
+    end
   end
 
   def button_edit(conn, id) do

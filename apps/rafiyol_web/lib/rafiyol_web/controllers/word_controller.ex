@@ -72,15 +72,15 @@ defmodule RafiyolWeb.WordController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => id, "next" => next}) do
     case Rafiyol.delete_word(id) do
       {:ok, _} ->
-        redirect(conn, to: Routes.word_path(conn, :index))
+        redirect(conn, to: next)
 
       {:error, _} ->
         conn
         |> put_flash(:error, "Something get wrong")
-        |> redirect(to: Routes.word_path(conn, :index))
+        |> redirect(to: next)
     end
   end
 end
