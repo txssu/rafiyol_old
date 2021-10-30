@@ -55,6 +55,18 @@ defmodule Rafiyol do
     Repo.all(query)
   end
 
+  def count_users_words_for_learning(user_id) do
+    query =
+      from w in Word,
+        where:
+          ^user_id == w.user_id and
+            (w.next_repeat <= ^Date.utc_today() or is_nil(w.next_repeat)),
+        order_by: [asc: :inserted_at],
+        limit: 10
+
+        Repo.aggregate(query, :count, :id)
+  end
+
   def get_word(id) do
     Repo.get(Word, id)
   end

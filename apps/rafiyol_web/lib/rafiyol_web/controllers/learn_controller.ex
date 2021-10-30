@@ -4,7 +4,9 @@ defmodule RafiyolWeb.LearnController do
   plug RafiyolWeb.Logged, :logged
 
   def show(conn, _params) do
-    render(conn, "show.html", page_name: "Learning")
+    user_id = conn.assigns.current_user.id
+    can_create = Rafiyol.count_users_words_for_learning(user_id) != 0
+    render(conn, "show.html", can_create: can_create, page_name: "Learning")
   end
 
   def create(conn, _params) do
@@ -43,6 +45,8 @@ defmodule RafiyolWeb.LearnController do
   end
 
   def delete(conn, _params) do
-    render(conn, "delete.html", page_name: "Learning complete")
+    user_id = conn.assigns.current_user.id
+    can_create = Rafiyol.count_users_words_for_learning(user_id) != 0
+    render(conn, "delete.html", can_create: can_create, page_name: "Learning complete")
   end
 end

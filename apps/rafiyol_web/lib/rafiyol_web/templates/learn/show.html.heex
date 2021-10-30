@@ -7,4 +7,6 @@ The words you remembered will appear in the deck again in a few days (from 3 to 
 the words where you pressed <button class="btn btn-danger btn-sm">again</button> will appear in the deck tomorrow.
 </p>
 
-<%= button "Start learn session", to: Routes.learn_path(@conn, :create), class: "btn btn-primary"%>
+<div>
+    <%= start_session_button @conn, "Start learn session", @can_create %>
+</div>
