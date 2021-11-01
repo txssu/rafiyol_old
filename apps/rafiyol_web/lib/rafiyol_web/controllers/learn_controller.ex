@@ -5,8 +5,17 @@ defmodule RafiyolWeb.LearnController do
 
   def show(conn, _params) do
     user_id = conn.assigns.current_user.id
-    can_create = Rafiyol.count_users_words_for_learning(user_id) != 0
-    render(conn, "show.html", can_create: can_create, page_name: "Learning")
+    count_all_words_for_repetition = Rafiyol.count_users_words_for_learning(user_id)
+    new_words = Rafiyol.count_users_words_0th_level(user_id)
+
+    render(
+      conn,
+      "show.html",
+      can_create: count_all_words_for_repetition != 0,
+      new_words: new_words,
+      old_words: count_all_words_for_repetition - new_words,
+      page_name: "Learning"
+    )
   end
 
   def create(conn, _params) do

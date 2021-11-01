@@ -1,12 +1,28 @@
 <h2>Repeat today's words!</h2>
 <p>
 There are up to 10 words in one deck for repetition.
-If you know the translation of the word, press <button class="btn btn-success btn-sm">good</button>, 
-otherwise press <button class="btn btn-danger btn-sm">again</button> and the word will be moved to the end of the deck you are studying.
+If you know the translation of the word, press <a class="btn btn-success btn-sm">good</a>, 
+otherwise press <a class="btn btn-danger btn-sm">again</a> and the word will be moved to the end of the deck you are studying.
 The words you remembered will appear in the deck again in a few days (from 3 to 30),
-the words where you pressed <button class="btn btn-danger btn-sm">again</button> will appear in the deck tomorrow.
+the words where you pressed <a class="btn btn-danger btn-sm">again</a> will appear in the deck tomorrow.
 </p>
 
 <div>
-    <%= start_session_button @conn, "Start learn session", @can_create %>
+    <%= if @can_create do %>
+        <div class="card text-center mb-3">
+            <div class="card-header">
+                Briefing
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Today you need to</h5>
+                <p class="card-text">
+                    <p>Repeat <%= @old_words %> cards</p>
+                    <p>Learn <%= @new_words %> new cards</p>
+                </p>
+                <%= start_session_button @conn, "Start" %>
+            </div>
+        </div>
+    <% else %>
+        You're good, you have no more words for repetition
+    <% end %>
 </div>

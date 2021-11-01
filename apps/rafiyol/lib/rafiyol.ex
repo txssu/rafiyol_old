@@ -49,7 +49,7 @@ defmodule Rafiyol do
         where:
           ^user_id == w.user_id and
             (w.next_repeat <= ^Date.utc_today() or is_nil(w.next_repeat)),
-        order_by: [asc: :inserted_at],
+        order_by: [asc: :level, asc: :inserted_at],
         limit: 10
 
     Repo.all(query)
@@ -61,8 +61,18 @@ defmodule Rafiyol do
         where:
           ^user_id == w.user_id and
             (w.next_repeat <= ^Date.utc_today() or is_nil(w.next_repeat)),
-        order_by: [asc: :inserted_at],
-        limit: 10
+        order_by: [asc: :inserted_at]
+
+        Repo.aggregate(query, :count, :id)
+  end
+
+  def count_users_words_0th_level(user_id) do
+    query =
+      from w in Word,
+        where:
+          ^user_id == w.user_id and w.level == 0 and
+            (w.next_repeat <= ^Date.utc_today() or is_nil(w.next_repeat)),
+        order_by: [asc: :inserted_at]
 
         Repo.aggregate(query, :count, :id)
   end

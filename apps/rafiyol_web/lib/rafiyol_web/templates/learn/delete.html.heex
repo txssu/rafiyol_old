@@ -5,5 +5,9 @@
 <!-- TODO: Statistics -->
 
 <div>
-    <%= start_session_button @conn, "Again?", @can_create %>
+    <%= if @can_create do %>
+        <%= start_session_button @conn, "Again?" %>
+    <% else %>
+        You're good, you have no more words for repetition
+    <% end %>
 </div>
